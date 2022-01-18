@@ -1,0 +1,16 @@
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+::-webkit-scrollbar {
+  display: none;
+}
+#addNew_btn {
+  position: absolute;
+  bottom: 4rem;
+  right: 4rem;
+}
+.page {
+  padding: 2rem;
+}
