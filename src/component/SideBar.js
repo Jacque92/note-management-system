@@ -11,7 +11,10 @@ import DraftsIcon from "@mui/icons-material/Drafts";
 import { Link } from "react-router-dom";
 
 const linkStyle = { textDecoration: "none", color: "black" };
-export function SideBar() {
+export function SideBar({ setActiveTab }) {
+  const handleActiveTab = (tabName) => {
+    setActiveTab(tabName);
+  };
   return (
     <Box
       sx={{
@@ -23,7 +26,11 @@ export function SideBar() {
     >
       <nav aria-label="main mailbox folders">
         <List>
-          <Link to="/reference" style={linkStyle}>
+          <Link
+            to="/reference"
+            style={linkStyle}
+            onClick={() => handleActiveTab("Reference")}
+          >
             <ListItem disablePadding>
               <ListItemButton>
                 <ListItemIcon>
@@ -33,7 +40,11 @@ export function SideBar() {
               </ListItemButton>
             </ListItem>
           </Link>
-          <Link to="/thought" style={linkStyle}>
+          <Link
+            to="/thought"
+            style={linkStyle}
+            onClick={() => handleActiveTab("Thought")}
+          >
             <ListItem disablePadding>
               <ListItemButton>
                 <ListItemIcon>
@@ -43,7 +54,11 @@ export function SideBar() {
               </ListItemButton>
             </ListItem>
           </Link>
-          <Link to="/writing" style={linkStyle}>
+          <Link
+            to="/writing"
+            style={linkStyle}
+            onClick={() => handleActiveTab("Writing")}
+          >
             <ListItem disablePadding>
               <ListItemButton>
                 <ListItemIcon>

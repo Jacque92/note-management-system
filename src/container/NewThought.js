@@ -3,31 +3,16 @@ import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
 import { Button } from "@mui/material";
 import { useLocation } from "react-router";
-import Paper from "@mui/material/Paper";
 
-export function NewThought(props) {
-  let { thoughtIndex, thoughtNotes } = props;
-  // console.log(thoughtIndex);
+export function NewThought() {
   const location = useLocation();
-
-  let sequence;
-
-  // const [index, setIndex] = useState("");
-
-  let index;
   let prevIndex = location.pathname.split("/")[2];
-
-  if (location.pathname.split("/")[3] === "sequence") {
-    let number = thoughtIndex.split("(")[0];
-    let letter = thoughtIndex.match(`[a-z]`)[0];
-    let nextLetter = String.fromCharCode(letter.charCodeAt(0) + 1);
-    thoughtIndex = thoughtIndex.replace(number, prevIndex.split("(")[0]);
-    thoughtIndex = thoughtIndex.replace(letter, nextLetter);
-  }
+  let newIndex =
+    location.pathname.split("/")[4] || location.pathname.split("/")[3];
 
   return (
     <form
-      action={`/thought/${prevIndex}/${thoughtIndex}`}
+      action={`/thought/${prevIndex}/${newIndex}`}
       method="POST"
       style={{ width: "70%", margin: "4rem auto" }}
     >
@@ -37,7 +22,7 @@ export function NewThought(props) {
         }}
       >
         <h1>New Thought Note</h1>
-        <h2 style={{ textAlign: "right" }}>Index: {thoughtIndex}</h2>
+        <h2 style={{ textAlign: "right" }}>Index: {newIndex}</h2>
 
         <TextField
           id="outlined-multiline-static"

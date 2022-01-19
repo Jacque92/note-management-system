@@ -2,49 +2,43 @@ import * as React from "react";
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
 import { Button } from "@mui/material";
-import { useState } from "react";
 import { useLocation } from "react-router";
+import { useState } from "react";
+import Note from "../model/Note";
 
-export function NewNote(props) {
+export function NewNote() {
   const location = useLocation();
+  let newIndex =
+    location.pathname.split("/")[4] || location.pathname.split("/")[3];
+  let prevIndex = location.pathname.split("/")[4]
+    ? location.pathname.split("/")[2]
+    : "new";
 
-  const { referenceIndex, allReferences } = props;
+  const [title, setTitle] = useState("");
+  const [author, setAuthor] = useState("");
 
-  let index;
-  let prevIndex;
-  let isSequence = false;
+  React.useEffect(async () => {
+    const data = await fetch(`/reference/${prevIndex}`);
+    const note = await data.json();
 
-  if (location.pathname.split("/")[3] === "sequence") {
-    //*********  Sequence reference note
-    prevIndex = location.pathname.split("/")[2]; //index of clicked note
-    // let subNote = new RegExp(`^${prevIndex}[a-z]`);
-    let number = prevIndex.split("(")[0];
-    let letter = prevIndex.match(/[a-z]/);
+    setTitle(note[0].title);
+    setAuthor(note[0].author);
+  }, []);
 
-    let count = 0;
-    let nextLetter = String.fromCharCode(letter[0].charCodeAt(0) + 1);
-    index = prevIndex.replace(letter[0], nextLetter);
-
-    allReferences.map((note) => {
-      if (note.index.match(`^${number}[(][a-z]`)) {
-        count++;
-      }
-    });
-    nextLetter = String.fromCharCode("a".charCodeAt(0) + count);
-    index = prevIndex.replace(letter[0], nextLetter);
-    isSequence = true;
-  } else {
-    //********** New reference note
-    index = referenceIndex + 1 + "(a)";
-    prevIndex = location.pathname.split("/")[3];
-  }
-
+  const handleInput = (e) => {
+    const { name, value } = e.target;
+    if (name === "title") {
+      setTitle(value);
+    } else {
+      setAuthor(value);
+    }
+  };
   return (
     <form
       action={
-        typeof index === "string"
-          ? `/reference/${prevIndex}/sequence/${index}`
-          : `/reference/new/${prevIndex}`
+        prevIndex === "new"
+          ? `/reference/${prevIndex}/${newIndex}`
+          : `/reference/${prevIndex}/sequence/${newIndex}`
       }
       method="POST"
       style={{ width: "70%", margin: "4rem auto" }}
@@ -55,7 +49,7 @@ export function NewNote(props) {
         }}
       >
         <h1>New Reference Note</h1>
-        <h2 style={{ textAlign: "right" }}>Index: {index}</h2>
+        <h2 style={{ textAlign: "right" }}>Index: {newIndex}</h2>
         <TextField
           id="outlined-multiline-static"
           name="quote"
@@ -67,31 +61,24 @@ export function NewNote(props) {
         />
 
         <TextField
+          onChange={handleInput}
           style={{ width: "100%" }}
           id="outlined-basic"
           name="title"
           label="Title"
           variant="outlined"
-          defaultValue={
-            isSequence
-              ? allReferences.find((note) => note.index === prevIndex).title
-              : ""
-          }
-          required
-        />
+          value={title}
+        ></TextField>
+
         <TextField
+          onChange={handleInput}
           style={{ width: "100%" }}
           id="outlined-basic"
           name="author"
           label="Author"
           variant="outlined"
-          defaultValue={
-            isSequence
-              ? allReferences.find((note) => note.index === prevIndex).author
-              : ""
-          }
-          required
-        />
+          value={author}
+        ></TextField>
 
         <TextField
           style={{ width: "100%" }}

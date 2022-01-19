@@ -77,6 +77,7 @@ router.post(
     );
   }
 );
+
 router.get("/new", (req, res) => {
   res.json({});
 });
@@ -94,6 +95,7 @@ router.get("/:index", (req, res) => {
   Note.find({ index: index }, (error, note) => {
     if (!error) {
       res.json(note);
+      console.log(note);
     }
   });
 });

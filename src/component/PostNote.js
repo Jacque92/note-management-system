@@ -3,18 +3,19 @@ import Paper from "@mui/material/Paper";
 import Button from "@mui/material/Button";
 import { Link } from "react-router-dom";
 
+import { getNextIndex } from "../utilise";
+
 export const PostNote = (props) => {
-  const { noteInfo } = props;
-  const { thoughtInfo } = props;
+  const { noteInfo, allNotes, allThoughts } = props;
 
   return (
     <Paper elevation={3} style={{ padding: "1rem" }}>
       <Link
         style={{ textDecoration: "none", color: "black" }}
         to={`/${
-          noteInfo
+          noteInfo.quote
             ? "reference/" + noteInfo.index
-            : "thought/" + thoughtInfo.index
+            : "thought/" + noteInfo.index
         }/`}
       >
         <div
@@ -25,27 +26,31 @@ export const PostNote = (props) => {
             overflowY: "scroll",
           }}
         >
-          {noteInfo ? noteInfo.quote : thoughtInfo.thought}
+          {noteInfo.quote || noteInfo.thought}
         </div>
       </Link>
       <div style={{ textAlign: "right", marginTop: "0.5rem" }}>
-        <p>Index:{noteInfo ? noteInfo.index : thoughtInfo.index} </p>
+        <p>Index:{noteInfo.index} </p>
       </div>
       <div style={{ textAlign: "right", marginTop: "0.1rem", display: "flex" }}>
         <Link
           style={{ textDecoration: "none" }}
-          to={`/${noteInfo ? "reference" : "thought"}/${
-            noteInfo ? noteInfo.index : thoughtInfo.index
-          }/sequence`}
+          to={`/${noteInfo.quote ? "reference" : "thought"}/${
+            noteInfo.index
+          }/sequence/${
+            noteInfo.quote
+              ? getNextIndex(allNotes, noteInfo.index)
+              : getNextIndex(allThoughts, noteInfo.index)
+          }`}
         >
           <Button variant="text">+sequence</Button>
         </Link>
         {noteInfo ? (
           <Link
             style={{ textDecoration: "none" }}
-            to={`/thought/${noteInfo.index}`}
+            to={`/thought/${noteInfo.index}/${getNextIndex(allThoughts)}`}
           >
-            <Button variant="text">+thought</Button>
+            {noteInfo.quote ? <Button variant="text">+thought</Button> : ""}
           </Link>
         ) : (
           ""
