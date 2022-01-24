@@ -1,6 +1,7 @@
 # Note Management System
 A web application managing reading notes for helping establish personal knowledge system and structure writing.
 Click [this link](https://note-managing-system.herokuapp.com/reference) to check it out.
+
 ## Inspiration
 It's inspired by the note-managing method mentioned in the book named "How to take smart notes: one simple technique to boost writing, learning and thinking".
 - The author introduced two slip-note boxes, one is for storing reference notes, another is for keeping ideas, thoughts or views. Only write one point in each note, and you can add sequencial note after one.
@@ -24,4 +25,4 @@ It's inspired by the note-managing method mentioned in the book named "How to ta
 - Run npm build 
 - Run npm start
 
-#### 
+#### ** The main purpose for this app is to apply what I've learned and hone my frontend and backend development skills. The current design is not a good solution for the problem, but I will keep updating the user experience and try to bring it alive. 
