@@ -1,6 +1,6 @@
 # Note Management System
 A web application managing reading notes for helping establish personal knowledge system and structure writing.
-Click [this link](https://note-managing-system.herokuapp.com/reference) to check it out.
+Click [this link](https://note-managing-system.herokuapp.com/) to check it out.
 
 ## Inspiration
 It's inspired by the note-managing method mentioned in the book named "How to take smart notes: one simple technique to boost writing, learning and thinking".
