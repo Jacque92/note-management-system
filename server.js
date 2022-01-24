@@ -12,7 +12,14 @@ const writingRoute = require("./src/route/writing");
 const Note = require("./src/model/Note");
 
 app.enable("trust proxy");
-app.use(express.static(path.join(__dirname, "./build")));
+
+if (process.env.NODE_ENV === "production") {
+  app.use(express.static(path.join(__dirname, "./build")));
+} else {
+  app.get("/", (req, res) => {
+    res.send(`API is running on ${process.env.NODE_ENV}`);
+  });
+}
 
 app.use(express.urlencoded({ extended: true }));
 
