@@ -19,6 +19,11 @@ It's inspired by the note-managing method mentioned in the book named "How to ta
 - Automately create index for managing notes.
 - Choose between "List" and "Gallery" view when browsing notes.
 
+## Features to be added
+- Login/Register
+- Trash
+- ...
+
 ## Usage
 - Install Node and npm
 - Run npm install 
