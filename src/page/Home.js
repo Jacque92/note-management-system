@@ -13,9 +13,9 @@ export const Home = () => {
           Many people who are known as knowledgeable read lots of books and make
           good use of what they read to solve problems. Some people read lots of
           books, too, but they forget what they read quickly or feel hard to
-          establish connections between knowledge. I've seen Knowledge System
-          mentioned by people like Bill Gates, Charlie Munger, and looking for
-          ways to establish my own knowledge system.
+          establish connections between knowledge knots. I've seen Knowledge
+          System mentioned by people like Bill Gates, Charlie Munger, and
+          looking for ways to establish my own knowledge system.
         </Typography>
         <Typography variant="body1" gutterBottom component="div">
           There are many software and Apps that can help to do part of this job,

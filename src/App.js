@@ -14,6 +14,8 @@ import { Routes } from "react-router";
 import { useState } from "react";
 import { NewThought } from "./container/NewThought";
 import { NewNote } from "./container/NewNote";
+import { SavedNote } from "./container/SavedNote";
+import { NewWriting } from "./container/NewWriting";
 
 function App() {
   const [activeTab, setActiveTab] = useState("");
@@ -35,22 +37,46 @@ function App() {
               <Routes>
                 <Route
                   path="/thought/:referenceindex/sequence/:index"
-                  element={<NewThought />}
+                  element={<NewThought setActiveTab={setActiveTab} />}
                 ></Route>
                 <Route
                   path="/thought/:referenceindex/:index"
-                  element={<NewThought />}
+                  element={<NewThought setActiveTab={setActiveTab} />}
+                ></Route>
+                <Route
+                  path="/thought/:index"
+                  element={<SavedNote setActiveTab={setActiveTab} />}
                 ></Route>
                 <Route
                   path="/reference/:referenceindex/sequence/:index"
-                  element={<NewNote />}
+                  element={<NewNote setActiveTab={setActiveTab} />}
                 ></Route>
                 <Route
                   path="/reference/new/:index"
-                  element={<NewNote />}
+                  element={<NewNote setActiveTab={setActiveTab} />}
                 ></Route>
                 <Route
-                  path="/*"
+                  path="/reference/:index"
+                  element={<SavedNote setActiveTab={setActiveTab} />}
+                ></Route>
+                <Route
+                  path="/writing/new/:index"
+                  element={<NewWriting setActiveTab={setActiveTab} />}
+                ></Route>
+                <Route
+                  path="/writing/:index"
+                  element={<SavedNote setActiveTab={setActiveTab} />}
+                ></Route>
+                <Route
+                  path="/reference"
+                  element={<AllNotes activeTab={activeTab} />}
+                ></Route>
+                <Route
+                  path="/thought"
+                  element={<AllNotes activeTab={activeTab} />}
+                ></Route>
+                <Route
+                  path="/writing"
                   element={<AllNotes activeTab={activeTab} />}
                 ></Route>
                 <Route path="/" element={<Home />}></Route>

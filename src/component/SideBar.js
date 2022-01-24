@@ -75,7 +75,7 @@ export function SideBar({ setActiveTab }) {
         <List>
           <ListItem disablePadding>
             <ListItemButton>
-              <ListItemText primary="Draft" />
+              <ListItemText primary="Trash" />
             </ListItemButton>
           </ListItem>
         </List>

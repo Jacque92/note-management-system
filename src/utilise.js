@@ -28,3 +28,18 @@ export const getNextIndex = (allThoughts, thisIndex = 0) => {
     return maxNumber + "(a)";
   }
 };
+
+export const submitNote = async (noteInfo, url) => {
+  const requestOptions = {
+    method: "POST",
+    body: JSON.stringify(noteInfo),
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    },
+  };
+  const response = await fetch(url, requestOptions);
+  if (response.ok) {
+    return { message: "Note Saved!" };
+  }
+};

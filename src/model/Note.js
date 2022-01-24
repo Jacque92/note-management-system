@@ -6,7 +6,7 @@ const noteSchema = mongoose.Schema({
   title: String,
   author: String,
   pageNumber: Number,
-  sequence: [String],
+  // sequence: [String],
   // connect: String,
 });
 

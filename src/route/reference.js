@@ -6,34 +6,30 @@ const router = express.Router();
 const bodyParser = require("body-parser");
 
 const Note = require("../model/Note");
+const { query } = require("express");
 
 router.post(
   "/new/:referenceindex",
-  bodyParser.urlencoded({ extended: false }),
+  // bodyParser.urlencoded({ extended: false }),
   (req, res) => {
     let { quote, title, author, pageNumber } = req.body;
-    console.log(req.params);
     let referenceindex = req.params.referenceindex;
-
+    console.log(req.body);
     let newNote = new Note({
       quote: quote,
       title: title,
       author: author,
       pageNumber: pageNumber,
       index: referenceindex,
-      sequenceNote: [],
+      // sequenceNote: [],
       // linkedNote: linkedNote,
     });
 
     newNote.save((error, savedNote) => {
       if (!error) {
-        let returnObject = {};
-        returnObject["quote"] = savedNote.quote;
-        returnObject["title"] = savedNote.title;
-        returnObject["author"] = savedNote.author;
-        returnObject["page"] = savedNote.pageNumber;
-        returnObject["index"] = savedNote.index;
-        res.json(returnObject);
+        res.json({ success: "Note Saved" });
+      } else {
+        res.json(error);
       }
     });
   }
@@ -44,8 +40,7 @@ router.post(
   bodyParser.urlencoded({ extended: false }),
   (req, res) => {
     let { referenceindex, sequenceindex } = req.params;
-    console.log(referenceindex);
-    console.log(sequenceindex);
+
     //***********     save the sequence note as seperate note
     let { quote, title, author, pageNumber } = req.body;
 
@@ -83,9 +78,9 @@ router.get("/new", (req, res) => {
 });
 
 router.get("/all", (req, res) => {
-  Note.find({}, (error, userArray) => {
+  Note.find({}, (error, noteArray) => {
     if (!error) {
-      res.json(userArray);
+      res.json(noteArray);
     }
   });
 });
@@ -95,14 +90,17 @@ router.get("/:index", (req, res) => {
   Note.find({ index: index }, (error, note) => {
     if (!error) {
       res.json(note);
-      console.log(note);
     }
   });
 });
+
 router.delete("/:index", (req, res) => {
-  if (!error) {
-    res.json(note);
-  }
+  let index = req.params.index;
+  Note.deleteOne({ index: index }, (error, note) => {
+    if (!error) {
+      res.json({ result: "success" });
+    }
+  });
 });
 
 module.exports = router;

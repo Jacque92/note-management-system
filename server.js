@@ -5,12 +5,23 @@ const app = express();
 const cors = require("cors");
 const bodyParser = require("body-parser");
 const path = require("path");
+
 const referenceRoute = require("./src/route/reference");
 const thoughtRoute = require("./src/route/thought");
 const writingRoute = require("./src/route/writing");
+const Note = require("./src/model/Note");
 
 app.enable("trust proxy");
 app.use(express.static(path.join(__dirname, "./build")));
+
+app.use(express.urlencoded({ extended: true }));
+
+// parse application/json
+app.use(express.json());
+
+// app.get("/reference", (req, res) =>
+//   res.sendFile(path.resolve(__dirname, "build", "index.html"))
+// );
 
 dotenv.config();
 app.use(cors());
@@ -18,6 +29,7 @@ app.use(cors());
 app.use("/reference", referenceRoute);
 app.use("/thought", thoughtRoute);
 app.use("/writing", writingRoute);
+
 //connect to DB
 async function connect() {
   try {

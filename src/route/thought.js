@@ -13,21 +13,19 @@ router.post(
   (req, res) => {
     let { refindex, index } = req.params;
     let { thought, topic } = req.body;
+
     let newThought = new Thought({
-      referenceNote: refindex,
       thought: thought,
       topic: topic,
       index: index,
+      refNoteIndex: refindex,
     });
 
     newThought.save((error, savedNote) => {
       if (!error) {
-        let returnObject = {};
-        returnObject["referenceNote"] = savedNote.referenceNote;
-        returnObject["thought"] = savedNote.thought;
-        returnObject["topic"] = savedNote.topic;
-        returnObject["index"] = savedNote.index;
-        res.json(returnObject);
+        res.json({ success: "Note Saved" });
+      } else {
+        res.json(error);
       }
     });
   }
@@ -50,22 +48,14 @@ router.get("/:index", (req, res) => {
     }
   });
 });
+
 router.delete("/:index", (req, res) => {
   let index = req.params.index;
-  let id;
-  console.log("test");
-  Thought.find({ index: index }, (error, note) => {
-    id = note[0]._id;
-    console.log(note[0]._id);
-
-    res.json({});
+  Thought.deleteOne({ index: index }, (error, result) => {
+    if (!error) {
+      res.json(result);
+    }
   });
-  // Thought.findByIdAndRemove(id, (err, removeDoc) => {
-  //   if (err) return console.log(err);
-  //   done(null, removeDoc);
-  // });
-
-  // Thought.deleteOne(note[0]);
 });
 
 module.exports = router;
